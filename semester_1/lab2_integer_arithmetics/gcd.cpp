@@ -1,3 +1,6 @@
+//Для всех чисел a,b при которых  a*b=(MaxInt+2147483647) -> Try again, т.к. реальное значение лежит в промеж. от 0 до 2147483647
+//В противном случае: u broke my program
+
 #include <iostream>
 #include <numeric>
 
