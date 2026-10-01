@@ -1,8 +1,7 @@
 
 #include <iostream>
 #include <cmath>
-
-
+//тут пасхалка :0
 using std::cin;
 using std::cout;
 using std::endl;
