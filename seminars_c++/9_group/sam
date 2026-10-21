@@ -1,0 +1,85 @@
+#include <iostream>
+//made by dllpvp
+using std::cout, std::cin, std::endl;
+
+int ReturnZero(int** matr, int m, int n, bool asc) {//с начала -  ASC=1 , ASC=0 - с конца
+    int i;
+    asc ? i = 0 : i = n - 1;
+    while (i >= 0 && i < n && matr[m][i] != 0) {
+        asc ? i++ : i--;
+    }
+
+    if (i >= 0 && i < n) {
+        return i;
+    }
+    return -1;
+}
+
+
+int Sum(int** matr, int il, int ir, int m) {
+    int S = 0;
+    if (il == ir) return -(m + 1);
+    for (int i = il; i < ir; i++) {
+        S += matr[m][i];
+    }
+    return S;
+}
+
+// бабуль сорт
+void bubbleSort(int** matr, int m, int n) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m - i - 1; j++) {
+            if (matr[j][n] > matr[j + 1][n]) {
+                std::swap(matr[j], matr[j + 1]);
+            }
+        }
+    }
+}
+
+
+
+
+
+int main()
+{
+    int n, m; //n - colums,m - rows;
+    cin >> m >> n;
+
+    if (n <= 1 || m <= 1) {
+        std::cerr << "You enter wrong values ;( \n";
+        return 1;
+    }
+
+    int** matr = new int* [m]; //m -колво строчек
+    for (int i = 0; i < m; i++) {
+        matr[i] = new int[n + 1]; // n - количество элементов (Столбцев)
+    }
+
+
+    for (int i = 0;i < m;i++) { // в строчке i
+        for (int j = 0; j < n; j++) { //элемент j
+            cin >> matr[i][j];
+        }
+    }
+
+    for (int i = 0; i < m; i++) {
+        matr[i][n] = Sum(matr, ReturnZero(matr, i, n, 1), ReturnZero(matr, i, n, 0), i);
+    }
+
+
+    bubbleSort(matr, m, n);
+
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << matr[i][j] << (j + 1 < n ? " " : "");
+        }
+        cout << endl;
+    }
+
+
+    //чистим мусор и фейсу)
+    for (int i = 0; i < m;i++) {
+        delete[] matr[i];
+    } delete[] matr;
+
+}
